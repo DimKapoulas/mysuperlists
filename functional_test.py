@@ -1,4 +1,6 @@
 from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+import time
 import unittest
 
 class NewVisitorTest(unittest.TestCase):
@@ -14,19 +16,34 @@ class NewVisitorTest(unittest.TestCase):
         # He/she goes to check its homepage
         self.browser.get('http://localhost:8000')
 
-        # She notices the page title is to-do lists
+        # She notices the page title  and header mention to-do lists
         self.assertIn('To-Do', self.browser.title)
-        self.fail('Finish the test!')
+        header_text = self.browser.find_element_by_tag_name('h1').text
+        self.assertIn('To-DO', header_text)
 
         # She is invited to enter a to-do straight away
+        inputbox = self.browser.find_element_by_id('id_new_item')
+        self.assertEqual(
+            input.get_attribute('placeholder'), 'Enter a to-do item'
+        )
 
         # She types "Buy peacok feathers" into a text box
+        inputbox.send_keys('Buy peacok feathers')
 
         # Whe she hits enter, the page updates, and now the page lsit
         # "1: Buy peacok feathers" as an item in to-do list
+        inputbox.send_keys(Keys.ENTER)
+        time.sleep(1)
+
+        table = self.browser.find_element_by_id('id_list_table')
+        rows = table.find_elements_by_tag_name('tr')
+        self.assertTrue(
+            any(row.text == '!: Buy peacok feathers' for row in rows)
+        )
 
         # There is still a text box invitting her to add another item. She
         # enters"Use peacok feathers to make afly"
+        self.fail('Finish the rest of test!')
 
         # The page updates again, and now shows both items onher list
 
