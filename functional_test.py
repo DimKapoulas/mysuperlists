@@ -10,7 +10,7 @@ class NewVisitorTest(unittest.TestCase):
         return self.browser.quit()
 
     def test_can_start_a_list_and_retrieve_it_later(self):
-        # Some heard about a cool on-line app.
+        # Someone heard about a cool on-line app.
         # He/she goes to check its homepage
         self.browser.get('http://localhost:8000')
 
