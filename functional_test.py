@@ -28,7 +28,7 @@ class NewVisitorTest(unittest.TestCase):
         )
 
         # She types "Buy peacok feathers" into a text box
-        inputbox.send_keys('Buy peacok feathers')
+        inputbox.send_keys('Buy peacock feathers')  
 
         # Whe she hits enter, the page updates, and now the page lsit
         # "1: Buy peacok feathers" as an item in to-do list
@@ -37,20 +37,31 @@ class NewVisitorTest(unittest.TestCase):
 
         table = self.browser.find_element_by_id('id_list_table')
         rows = table.find_elements_by_tag_name('tr')
-        self.assertTrue(
-            any(row.text == '1: Buy peacok feathers' for row in rows),
-            "New to-do item did not appear in table"
-        )
+        self.assertIn('1: Buy peacock feathers', [row.text for row in rows])
+        self.assertIn('2: Use peacock feathers to make a fly', [row.text for row in rows])
+
 
         # There is still a text box invitting her to add another item. She
-        # enters"Use peacok feathers to make afly"
-        self.fail('Finish the rest of test!')
+        # enters"Use peacok feathers to make a fly"
+        inputbox = self.browser.find_element_by_id('id_new_item')
+        inputbox.send_keys('Use peacock feathers to make a fly')
+        inputbox.send_keys(Keys.ENTER)
+        time.sleep(1)
+
+
 
         # The page updates again, and now shows both items onher list
+        table = self.browser.find_element_by_id('id_list_table')
+        rows = table.find_elements_by_tag_name('tr')
+        self.assertIn('1: Buy peacock feathers', [row.text for row in rows])
+        self.assertIn('2: Use peacock feathers to make a fly', [row.text for row in rows])
+
 
         # Now wonders whether the site will rembember her list.
-        # Notices the site has generated a unique URL with some explanatory text to that effect
-
+        # Notices the site has generated a unique URL with 
+        # some explanatory text to that effect
+        self.fail('Finish the rest of test!')
+        
         # She vistis that URL - her to-do list is still there.
 
         # Satisfied, she goes back to sleep
