@@ -14,7 +14,9 @@ class NewVisitorTest(unittest.TestCase):
         self.assertIn(row_text, [row.text for row in rows])
 
     def tearDown(self) -> None:
-        return self.browser.quit()
+        return self.browser.quit()    
+
+
 
     def test_can_start_a_list_and_retrieve_it_later(self):
         # Someone heard about a cool on-line app.
