@@ -6,16 +6,16 @@ from lists.models import Item
 
 # Home paige view
 def home_page(request):
-    # User input given
-    if request.method == 'POST':
-        Item.objects.create(text=request.POST['item_text'])
-        return redirect('/lists/the-only-list-in-the-world/')
+    return render(request, 'home.html')
     
-    # If GET request
-    items = Item.objects.all()
-    return render(request, 'home.html', {'items': items})
 
 # View for specific list
 def view_list(request):
     items = Item.objects.all()
     return render(request, 'list.html', {'items': items})
+
+
+# View for creating new list
+def new_list(request):
+    Item.objects.create(text=request.POST['item_text'])
+    return redirect('/lists/the-only-list-in-the-world/')
