@@ -5,6 +5,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import WebDriverException
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 import time
+import os
 
 MAX_WAIT = 10
 
@@ -14,6 +15,9 @@ class NewVisitorTest(StaticLiveServerTestCase):
         # settings = Options()
         # settings.headless = True
         self.browser = webdriver.Firefox()
+        staging_server = os.environ.get('STAGING_SERVER')
+        if staging_server:
+            self.live_server_url = 'http://' + staging_server
 
     def wait_for_row_in_list_table(self, row_text):
         start_time = time.time()
@@ -63,14 +67,6 @@ class NewVisitorTest(StaticLiveServerTestCase):
         # He/she goes to check its homepage
         self.browser.get(self.live_server_url)
         self.browser.set_window_size(1024, 768)
-
-        # # She notice the input box is nicely centered
-        # inputbox = self.browser.find_element_by_id('id_new_item')
-        # self.assertAlmostEqual(
-        #     inputbox.location['x'] + inputbox.size['width'] / 2,
-        #     512,
-        #     delta=33
-        # )
 
         # She notices the page title  and header mention to-do lists
         self.assertIn('To-Do', self.browser.title)
