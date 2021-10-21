@@ -22,6 +22,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-k)&9#-(@g7gb&t64$q3uf8(huihrbz9re4^t#60vget^7z5j14'
+# SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -79,10 +80,10 @@ WSGI_APPLICATION = 'superlists.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'postgres',
-        'USER': 'postgres',
-        'PASSWORD': 'PostgresKaj87!',
-        'HOST': 'localhost',
+        'NAME': 'dch9im4k0hfu9i',
+        'USER': 'mbxnjxjcneptib',
+        'PASSWORD': 'ab552ce772dd0d517061758a90e9a4d0b3d42978f606ee606a5849711ad3b7ac',
+        'HOST': 'ec2-176-34-116-203.eu-west-1.compute.amazonaws.com',
         'PORT': '5432'
     }
 }
