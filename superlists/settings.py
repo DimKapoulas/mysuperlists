@@ -12,6 +12,12 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 import os
 from pathlib import Path
+from dotenv import load_dotenv
+from django.core.management.utils import get_random_secret_key
+
+
+# Load values from env file
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -21,13 +27,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-k)&9#-(@g7gb&t64$q3uf8(huihrbz9re4^t#60vget^7z5j14'
-# SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = os.getenv('SECRET_KEY', get_random_secret_key())
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = os.environ.get('DEBUG')
 
-ALLOWED_HOSTS = ['atmyproject.herokuapp.com', '127.0.0.1']
+ALLOWED_HOSTS = ['atmyproject.com', '127.0.0.1']
 
 
 # Application definition
@@ -79,13 +84,21 @@ WSGI_APPLICATION = 'superlists.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'dch9im4k0hfu9i',
-        'USER': 'mbxnjxjcneptib',
-        'PASSWORD': 'ab552ce772dd0d517061758a90e9a4d0b3d42978f606ee606a5849711ad3b7ac',
-        'HOST': 'ec2-176-34-116-203.eu-west-1.compute.amazonaws.com',
-        'PORT': '5432'
+        'ENGINE': os.getenv('DB_ENGINE'),
+        'NAME': os.getenv('DB_NAME'),
+        'USER': os.getenv('DB_USER'),
+        'PASSWORD': os.getenv('DB_PASSWORD'),
+        'HOST': os.getenv('DB_HOST'),
+        'PORT': os.getenv('DB_PORT')
     }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    #     'NAME': 'dch9im4k0hfu9i',
+    #     'USER': 'mbxnjxjcneptib',
+    #     'PASSWORD': 'ab552ce772dd0d517061758a90e9a4d0b3d42978f606ee606a5849711ad3b7ac',
+    #     'HOST': 'ec2-176-34-116-203.eu-west-1.compute.amazonaws.com',
+    #     'PORT': '5432'
+    # }
 }
 
 
